@@ -1,11 +1,20 @@
 <Project>
   <!-- See https://aka.ms/dotnet/msbuild/customize for more details on customizing your build -->
   <PropertyGroup>
+    <!-- General project information -->
+    <Authors>Akke Luukkonen</Authors>
+    <Copyright>Copyright (c) Akke Luukkonen 2026</Copyright>
+    <PackageProjectUrl>https://github.com/Truffleware/truffleware</PackageProjectUrl>
+
+    <!-- Packaging -->
     <UseArtifactsOutput>true</UseArtifactsOutput>
     <Version>0.0.1-local</Version>
     <MinVerVersionOverride Condition="'$(CI)' != 'true'">$(Version)</MinVerVersionOverride>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReleaseNotes>https://github.com/Truffleware/truffleware/blob/master/CHANGELOG.md</PackageReleaseNotes>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Truffleware/truffleware.git</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

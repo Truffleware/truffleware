@@ -1,17 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
-        <Authors>Akke Luukkonen</Authors>
+        <!-- General project information -->
         <Description>Abstractions used by Truffleware.</Description>
+        <PackageTags>dotnet;abstractions;truffleware</PackageTags>
 
+        <!-- Target frameworks and language settings -->
         <TargetFrameworks>netstandard2.0;net10.0</TargetFrameworks>
         <LangVersion>12.0</LangVersion>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
 
+        <!-- Output type -->
+        <OutputType>library</OutputType>
+
+        <!-- Debug settings -->
         <DebugSymbols>true</DebugSymbols>
         <DebugType>portable</DebugType>
-        <OutputType>library</OutputType>
     </PropertyGroup>
-
 </Project>
