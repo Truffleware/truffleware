@@ -1,7 +1,12 @@
 <Project>
   <!-- See https://aka.ms/dotnet/msbuild/customize for more details on customizing your build -->
   <PropertyGroup>
-
-
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <Version>0.0.1-local</Version>
+    <MinVerVersionOverride Condition="'$(CI)' != 'true'">$(Version)</MinVerVersionOverride>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MinVer" PrivateAssets="All" />
+  </ItemGroup>
 </Project>
