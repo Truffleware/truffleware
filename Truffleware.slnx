@@ -1,5 +1,11 @@
 <Solution>
-  <Folder Name="/src/">
-    <Project Path="src/Truffleware.Abstractions/Truffleware.Abstractions.csproj" />
-  </Folder>
+    <Folder Name="/Solution Items/">
+        <File Path=".editorconfig"/>
+        <File Path="Directory.Build.props"/>
+        <File Path="Directory.Packages.props"/>
+    </Folder>
+
+    <Folder Name="/src/">
+        <Project Path="src/Truffleware.Abstractions/Truffleware.Abstractions.csproj"/>
+    </Folder>
 </Solution>
