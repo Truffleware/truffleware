@@ -1,2 +1,5 @@
 <Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Truffleware.Abstractions/Truffleware.Abstractions.csproj" />
+  </Folder>
 </Solution>
