@@ -4,9 +4,13 @@
     <UseArtifactsOutput>true</UseArtifactsOutput>
     <Version>0.0.1-local</Version>
     <MinVerVersionOverride Condition="'$(CI)' != 'true'">$(Version)</MinVerVersionOverride>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MinVer" PrivateAssets="All" />
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="/" />
+    <None Include="$(MSBuildThisFileDirectory)LICENSE" Pack="true" PackagePath="/" />
   </ItemGroup>
 </Project>
