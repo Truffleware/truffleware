@@ -7,5 +7,10 @@
 
     <Folder Name="/src/">
         <Project Path="src/Truffleware.Abstractions/Truffleware.Abstractions.csproj"/>
+        <Project Path="src/Truffleware.CodeAnalysis/Truffleware.CodeAnalysis.csproj"/>
+    </Folder>
+
+    <Folder Name="/tests/">
+        <Project Path="tests/Truffleware.CodeAnalysis.Tests/Truffleware.CodeAnalysis.Tests.csproj"/>
     </Folder>
 </Solution>
