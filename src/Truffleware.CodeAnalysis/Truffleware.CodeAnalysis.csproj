@@ -54,6 +54,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <InternalsVisibleTo Include="Truffleware.CodeAnalysis.Tests" />
+    </ItemGroup>
+
+    <ItemGroup>
         <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false"/>
         <None Include="$(OutputPath)\Truffleware.Abstractions.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false"/>
         <None Include="$(OutputPath)\Truffleware.Abstractions.dll" Pack="true" PackagePath="lib/netstandard2.0" Visible="false"/>
@@ -62,9 +66,5 @@
     <ItemGroup>
         <AdditionalFiles Include="AnalyzerReleases.Shipped.md" Visible="false"/>
         <AdditionalFiles Include="AnalyzerReleases.Unshipped.md" Visible="false"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Properties\" />
     </ItemGroup>
 </Project>
