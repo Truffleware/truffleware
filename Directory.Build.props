@@ -11,6 +11,7 @@
         <UseArtifactsOutput>true</UseArtifactsOutput>
         <Version>0.0.1-local</Version>
         <MinVerVersionOverride Condition="'$(CI)' != 'true'">$(Version)</MinVerVersionOverride>
+        <EnablePackageValidation>true</EnablePackageValidation>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReleaseNotes>https://github.com/Truffleware/truffleware/blob/master/CHANGELOG.md</PackageReleaseNotes>
