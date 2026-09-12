@@ -128,19 +128,27 @@ internal class RequestResponseGenerator : IIncrementalGenerator
                     continue;
                 }
 
-                List<string> usingLinesAll =
+                List<string> usingSystemNamespaceNames =
+                    ["System.Threading.Tasks"];
+
+                List<string> usingThirdPartyNamespaceNames =
                 [
                     GeneratorConstants.NamespaceName,
                     _abstractionsNamespace,
-                    handler.ClassNamespace,
-                    ..requestResponse.RequestNamespaces,
-                    ..requestResponse.ResponseNamespaces,
+                    handler.ClassNamespace
                 ];
-                var usingLines = usingLinesAll
-                    .Distinct()
-                    .Where(ns => !string.IsNullOrWhiteSpace(ns))
-                    .OrderBy(ns => ns)
-                    .Select(ns => $"using global::{ns};");
+
+                List<string> usingRequestResponseNamespaceNames =
+                    [..requestResponse.RequestNamespaces, ..requestResponse.ResponseNamespaces];
+
+                List<string> usingLines =
+                [
+                    ..FormatNamespaceNames(usingSystemNamespaceNames),
+                    "",
+                    ..FormatNamespaceNames(usingThirdPartyNamespaceNames),
+                    "",
+                    ..FormatNamespaceNames(usingRequestResponseNamespaceNames),
+                ];
                 var senderClassName = GetSenderClassName(requestResponse);
 
                 string code = $$"""
@@ -151,7 +159,7 @@ internal class RequestResponseGenerator : IIncrementalGenerator
 
                                 namespace {{GeneratorConstants.NamespaceName}};
 
-                                {{handler.Accessibility.ToKeyword()}} sealed class {{senderClassName}}({{nameof(IRequestHandler<,>)}}<{{requestResponse.RequestName}},{{requestResponse.ResponseName}}> handler)
+                                {{handler.Accessibility.ToKeyword()}} sealed class {{senderClassName}}({{nameof(IRequestHandler<,>)}}<{{requestResponse.RequestName}}, {{requestResponse.ResponseName}}> handler)
                                     : {{nameof(IRequestSender<,>)}}<{{requestResponse.RequestName}}, {{requestResponse.ResponseName}}>
                                 {
                                     public async Task<{{requestResponse.ResponseName}}> SendAsync({{requestResponse.RequestName}} request)
@@ -267,6 +275,15 @@ internal class RequestResponseGenerator : IIncrementalGenerator
 
          ctx.AddSource("ServiceExtensions.g.cs", code);
     }
+
+    private static List<string> FormatNamespaceNames(IEnumerable<string> namespaceNames)
+        =>
+        [
+            .. namespaceNames
+                .Distinct()
+                .OrderBy(ns => ns)
+                .Select(ns => $"using global::{ns};")
+        ];
 
     private static string GetSenderClassName(RequestResponse requestResponse)
     {
