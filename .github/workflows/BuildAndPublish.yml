@@ -29,6 +29,9 @@ jobs:
             exit 1
           fi
 
+      - name: dotnet test
+        run: dotnet test -c Release
+
       - name: dotnet pack
         run: dotnet pack
 
