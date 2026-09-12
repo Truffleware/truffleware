@@ -1,22 +1,22 @@
-﻿<Project Sdk="MSTest.Sdk/4.0.1">
+<Project Sdk="MSTest.Sdk/4.3.3">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="../../src/Truffleware.Abstractions/Truffleware.Abstractions.csproj"/>
+        <ProjectReference Include="../../src/Truffleware.CodeAnalysis/Truffleware.CodeAnalysis.csproj"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="../../src/Truffleware.Abstractions/Truffleware.Abstractions.csproj" />
-    <ProjectReference Include="../../src/Truffleware.CodeAnalysis/Truffleware.CodeAnalysis.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Bcl.HashCode" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
-  </ItemGroup>
-
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Bcl.HashCode"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="Verify.MSTest"/>
+        <PackageReference Include="Verify.SourceGenerators"/>
+    </ItemGroup>
 </Project>
