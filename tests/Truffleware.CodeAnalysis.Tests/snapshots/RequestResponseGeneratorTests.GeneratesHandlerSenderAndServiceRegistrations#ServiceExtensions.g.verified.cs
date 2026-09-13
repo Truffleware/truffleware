@@ -5,7 +5,7 @@
 using global::Microsoft.Extensions.DependencyInjection;
 
 using global::Truffleware.Abstractions.Messaging;
-using global::Truffleware.CodeAnalysis.Tests.inputs;
+using global::Truffleware.CodeAnalysis.Tests.Inputs;
 
 namespace Truffleware.Generated;
 
