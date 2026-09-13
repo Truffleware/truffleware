@@ -1,13 +1,14 @@
+using System.Runtime.CompilerServices;
+
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.Extensions.DependencyInjection;
-using System.Runtime.CompilerServices;
 
 using Truffleware.Abstractions.Messaging;
 using Truffleware.CodeAnalysis.Generators;
 
-namespace Truffleware.CodeAnalysis.Tests;
+namespace Truffleware.CodeAnalysis.Tests.Generators;
 
 [TestClass]
 [UsesVerify]
@@ -60,7 +61,10 @@ public sealed partial class RequestResponseGeneratorTests
 
     private static string GetInputsDirectory([CallerFilePath] string thisFilePath = "")
     {
-        return Path.Combine(Path.GetDirectoryName(thisFilePath)!, "inputs");
+        var relative = Path.Combine(Path.GetDirectoryName(thisFilePath)!, "..", "Inputs");
+        var absolute = Path.GetFullPath(relative);
+
+        return absolute;
     }
 
     private static IEnumerable<MetadataReference> GetMetadataReferences()

@@ -3,7 +3,7 @@ SHELL := /bin/bash
 
 DOTNET ?= dotnet
 TEST_PROJECT ?= ./tests/Truffleware.CodeAnalysis.Tests/Truffleware.CodeAnalysis.Tests.csproj
-SNAPSHOT_DIR ?= ./tests/Truffleware.CodeAnalysis.Tests/snapshots
+SNAPSHOT_DIR ?= ./tests/Truffleware.CodeAnalysis.Tests/Generators/Snapshots
 
 .PHONY: help restore build test test-update-snapshots clean
 
