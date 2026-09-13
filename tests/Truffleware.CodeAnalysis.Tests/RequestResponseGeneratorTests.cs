@@ -21,7 +21,7 @@ public sealed partial class RequestResponseGeneratorTests
     {
         var driver = RunGeneratorFromInputFile(RequestResponseInputFile, out var outputCompilation);
 
-        AssertNoErrors(outputCompilation);
+        AssertNoDiagnostics(outputCompilation);
 
         return Verify(driver);
     }
@@ -42,13 +42,20 @@ public sealed partial class RequestResponseGeneratorTests
         return driver;
     }
 
-    private static void AssertNoErrors(Compilation compilation)
+    private static void AssertNoDiagnostics(Compilation compilation)
     {
-        var errors = compilation.GetDiagnostics()
-            .Where(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error)
-            .ToArray();
+        AssertNoDiagnostics(compilation, DiagnosticSeverity.Error);
+        AssertNoDiagnostics(compilation, DiagnosticSeverity.Warning);
+        AssertNoDiagnostics(compilation, DiagnosticSeverity.Info);
+        // Skip hidden on purpose
+    }
 
-        Assert.AreEqual(string.Empty, string.Join(Environment.NewLine, errors));
+    private static void AssertNoDiagnostics(Compilation compilation, DiagnosticSeverity severity)
+    {
+        var diagnostics = compilation.GetDiagnostics()
+            .Where(diagnostic => diagnostic.Severity == severity);
+
+        Assert.IsNull(diagnostics.FirstOrDefault());
     }
 
     private static string GetInputsDirectory([CallerFilePath] string thisFilePath = "")
