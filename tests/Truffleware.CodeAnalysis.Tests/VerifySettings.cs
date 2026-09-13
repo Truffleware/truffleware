@@ -7,7 +7,7 @@ public static class VerifySettings
     [ModuleInitializer]
     public static void Initialize()
     {
-        UseProjectRelativeDirectory("snapshots");
+        UseSourceFileRelativeDirectory("Snapshots");
         VerifySourceGenerators.Initialize();
     }
 }
