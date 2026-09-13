@@ -67,7 +67,10 @@ public sealed partial class RequestResponseGeneratorTests
     {
         var assemblyLocations = AppDomain.CurrentDomain
             .GetAssemblies()
-            .Where(static assembly => !assembly.IsDynamic && !string.IsNullOrEmpty(assembly.Location))
+            .Where(static assembly =>
+                !assembly.IsDynamic &&
+                !string.IsNullOrEmpty(assembly.Location) &&
+                assembly != typeof(RequestResponseGeneratorTests).Assembly)
             .Select(static assembly => assembly.Location)
             .Append(typeof(RequestHandlerAttribute<,>).Assembly.Location)
             .Append(typeof(IServiceCollection).Assembly.Location)
