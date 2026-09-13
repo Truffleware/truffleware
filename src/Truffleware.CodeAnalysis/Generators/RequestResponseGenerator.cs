@@ -128,18 +128,20 @@ internal class RequestResponseGenerator : IIncrementalGenerator
                     continue;
                 }
 
-                List<string> usingSystemNamespaceNames =
-                    ["System.Threading.Tasks"];
+                List<string> usingSystemNamespaceNames = ["System.Threading.Tasks"];
 
                 List<string> usingThirdPartyNamespaceNames =
                 [
                     GeneratorConstants.NamespaceName,
                     _abstractionsNamespace,
-                    handler.ClassNamespace
                 ];
 
                 List<string> usingRequestResponseNamespaceNames =
-                    [..requestResponse.RequestNamespaces, ..requestResponse.ResponseNamespaces];
+                [
+                    .. requestResponse.RequestNamespaces,
+                    .. requestResponse.ResponseNamespaces,
+                    handler.ClassNamespace,
+                ];
 
                 List<string> usingLines =
                 [
