@@ -5,10 +5,9 @@
 using global::System.Threading.Tasks;
 
 using global::Truffleware.Abstractions.Messaging;
-using global::Truffleware.CodeAnalysis.Tests.inputs;
 using global::Truffleware.Generated;
 
-using global::Truffleware.CodeAnalysis.Tests.inputs;
+using global::Truffleware.CodeAnalysis.Tests.Inputs;
 
 namespace Truffleware.Generated;
 

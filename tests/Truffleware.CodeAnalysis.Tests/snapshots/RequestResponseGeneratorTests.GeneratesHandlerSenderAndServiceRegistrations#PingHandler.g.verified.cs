@@ -5,7 +5,7 @@
 using global::Truffleware.Abstractions.Messaging;
 using global::Truffleware.Generated;
 
-namespace Truffleware.CodeAnalysis.Tests.inputs;
+namespace Truffleware.CodeAnalysis.Tests.Inputs;
 
 public partial class PingHandler :
     IRequestHandler<Ping, Pong>
