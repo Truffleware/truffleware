@@ -16,10 +16,12 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoFixture.AutoMoq" />
         <PackageReference Include="Microsoft.Bcl.HashCode"/>
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="Moq" />
         <PackageReference Include="Verify.MSTest"/>
         <PackageReference Include="Verify.SourceGenerators"/>
     </ItemGroup>
