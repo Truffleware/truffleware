@@ -10,11 +10,15 @@
     <ItemGroup>
         <ProjectReference Include="../../src/Truffleware.Abstractions/Truffleware.Abstractions.csproj"/>
         <ProjectReference Include="../../src/Truffleware.CodeAnalysis/Truffleware.CodeAnalysis.csproj"/>
+        <ProjectReference Include="../../src/Truffleware.CodeAnalysis/Truffleware.CodeAnalysis.csproj"
+                          OutputItemType="Analyzer"
+                          ReferenceOutputAssembly="false"/>
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Bcl.HashCode"/>
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk"/>
         <PackageReference Include="Verify.MSTest"/>
         <PackageReference Include="Verify.SourceGenerators"/>
