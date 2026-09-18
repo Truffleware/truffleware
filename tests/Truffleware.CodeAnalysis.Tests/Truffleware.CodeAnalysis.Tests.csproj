@@ -16,6 +16,11 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Compile Remove="Inputs/RequestResponseGeneratorDuplicateHandlersInput.cs"/>
+        <None Include="Inputs/RequestResponseGeneratorDuplicateHandlersInput.cs"/>
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="AutoFixture.AutoMoq" />
         <PackageReference Include="Microsoft.Bcl.HashCode"/>
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp"/>

@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.Text;
 using Microsoft.Extensions.DependencyInjection;
 
 using Truffleware.Abstractions.Messaging;
+using Truffleware.CodeAnalysis.Diagnostics;
 using Truffleware.CodeAnalysis.Generators;
 
 namespace Truffleware.CodeAnalysis.Tests.Generators;
@@ -16,6 +17,7 @@ public sealed partial class RequestResponseGeneratorTests
 {
     private const string AssemblyName = "Truffleware.RequestResponseGenerator.Tests";
     private const string RequestResponseInputFile = "RequestResponseGeneratorInput.cs";
+    private const string DuplicateHandlersInputFile = "RequestResponseGeneratorDuplicateHandlersInput.cs";
 
     [TestMethod]
     public Task GeneratesHandlerSenderAndServiceRegistrations()
@@ -25,6 +27,22 @@ public sealed partial class RequestResponseGeneratorTests
         AssertNoDiagnostics(outputCompilation);
 
         return Verify(driver);
+    }
+
+    [TestMethod]
+    public void ReportsDiagnosticForDuplicateRequestResponseHandlers()
+    {
+        var driver = RunGeneratorFromInputFile(DuplicateHandlersInputFile, out _);
+
+        var diagnostics = driver.GetRunResult()
+            .Diagnostics
+            .Where(diagnostic => diagnostic.Id == DiagnosticDescriptors.Tw0001.Id)
+            .ToArray();
+
+        Assert.HasCount(2, diagnostics);
+        Assert.IsTrue(diagnostics.All(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error));
+        Assert.IsTrue(diagnostics.All(diagnostic =>
+            diagnostic.GetMessage() == "'RequestHandlerAttribute<DuplicatePing, DuplicatePong>' has multiple handlers"));
     }
 
     private static GeneratorDriver RunGeneratorFromInputFile(string fileName, out Compilation outputCompilation)
