@@ -7,7 +7,7 @@ internal static class DiagnosticDescriptors
     internal static readonly DiagnosticDescriptor Tw0001 = new(
         id: "TW0001",
         title: "Multiple declarations",
-        messageFormat: "'{0}' has multiple handlers",
+        messageFormat: "A handler for '{0}' was already declared by '{1}'",
         category: DiagnosticCategories.Usage,
         defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true,
