@@ -39,10 +39,11 @@ public sealed partial class RequestResponseGeneratorTests
             .Where(diagnostic => diagnostic.Id == DiagnosticDescriptors.Tw0001.Id)
             .ToArray();
 
-        Assert.HasCount(2, diagnostics);
-        Assert.IsTrue(diagnostics.All(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error));
-        Assert.IsTrue(diagnostics.All(diagnostic =>
-            diagnostic.GetMessage() == "'RequestHandlerAttribute<DuplicatePing, DuplicatePong>' has multiple handlers"));
+        var diagnostic = Assert.ContainsSingle(diagnostics);
+        Assert.AreEqual(DiagnosticSeverity.Error, diagnostic.Severity);
+        Assert.AreEqual(
+            "A handler for 'RequestHandlerAttribute<DuplicatePing, DuplicatePong>' was already declared by 'FirstDuplicatePingHandler'",
+            diagnostic.GetMessage());
     }
 
     private static GeneratorDriver RunGeneratorFromInputFile(string fileName, out Compilation outputCompilation)

@@ -93,13 +93,7 @@ internal class RequestResponseGenerator : IIncrementalGenerator
 
     private static void CreateSender(SourceProductionContext ctx, ImmutableArray<RequestHandler> handlers)
     {
-        var requestResponseDuplicates = handlers
-            .SelectMany(h => h.RequestResponses)
-            .GroupBy(r => r, _requestResponseComparer)
-            .Where(g => g.Count() > 1)
-            .Select(g => g.Key with { Location = Location.None })
-            .ToList();
-        var processed = new HashSet<RequestResponse>();
+        var processed = new Dictionary<RequestResponse, RequestHandler>();
         var handlersSorted = handlers
             .OrderBy(h => h.ClassName);
 
@@ -109,21 +103,22 @@ internal class RequestResponseGenerator : IIncrementalGenerator
             {
                 ctx.CancellationToken.ThrowIfCancellationRequested();
 
-                if (requestResponseDuplicates.Contains(requestResponse, _requestResponseComparer))
+                if (processed.TryGetValue(requestResponse with { Location = Location.None }, out var existing))
                 {
                     var diagnostic = Diagnostic.Create(
                         DiagnosticDescriptors.Tw0001,
                         requestResponse.Location,
-                        [ $"RequestHandlerAttribute<{requestResponse.RequestName}, {requestResponse.ResponseName}>", ]
+                        [
+                            $"RequestHandlerAttribute<{requestResponse.RequestName}, {requestResponse.ResponseName}>",
+                            existing.ClassName,
+                        ]
                     );
                     ctx.ReportDiagnostic(diagnostic);
-                }
 
-                // Even among duplicates we should generate the first file to reduce total amount of compiler errors.
-                if (!processed.Add(requestResponse with { Location = Location.None }))
-                {
                     continue;
                 }
+
+                processed[requestResponse with { Location = Location.None }] = handler;
 
                 List<string> usingSystemNamespaceNames = ["System.Threading.Tasks"];
 
