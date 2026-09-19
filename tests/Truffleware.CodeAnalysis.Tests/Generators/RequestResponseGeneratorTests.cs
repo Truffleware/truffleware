@@ -20,7 +20,7 @@ public sealed partial class RequestResponseGeneratorTests
     private const string DuplicateHandlersInputFile = "RequestResponseGeneratorDuplicateHandlersInput.cs";
 
     [TestMethod]
-    public Task GeneratesHandlerSenderAndServiceRegistrations()
+    public Task RunGenerator_ValidInput_ExpectedSnapshots()
     {
         var driver = RunGeneratorFromInputFile(RequestResponseInputFile, out var outputCompilation);
 
@@ -30,7 +30,7 @@ public sealed partial class RequestResponseGeneratorTests
     }
 
     [TestMethod]
-    public void ReportsDiagnosticForDuplicateRequestResponseHandlers()
+    public void RunGenerator_DuplicateRequestResponseHandlers_DiagnosticError()
     {
         var driver = RunGeneratorFromInputFile(DuplicateHandlersInputFile, out _);
 
