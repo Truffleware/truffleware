@@ -21,6 +21,16 @@ restore:
 build: restore
 	$(DOTNET) build --no-restore
 
+docs: clean-docs
+	docfx build docs/docfx.json
+
+docs-full:
+	# Generates new metadata, which is slow
+	docfx docs/docfx.json
+
+docs-serve: docs
+	docfx serve docs/_site
+
 test: build
 	$(DOTNET) test --project $(TEST_PROJECT) --no-build
 
@@ -32,3 +42,6 @@ test-renew-snapshots: build
 
 clean:
 	$(DOTNET) clean
+
+clean-docs:
+	git clean -df docs/_site/ docs/api/

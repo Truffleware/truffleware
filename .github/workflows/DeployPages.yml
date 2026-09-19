@@ -28,7 +28,7 @@ jobs:
         dotnet-version: 10.x
 
     - run: dotnet tool update -g docfx
-    - run: docfx docs/docfx.json
+    - run: make docs-full
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
