@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Truffleware.CodeAnalysis.Utilities;
 
-public static class FilenameUtils
+internal static class FilenameUtils
 {
     private const char ReplacementChar = '_';
     private const int StringSafeTotalLength = 50; // Arbitrarily chosen
