@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 namespace Truffleware.CodeAnalysis.Utilities;
 
-public static class TypeUtils
+internal static class TypeUtils
 {
     public static readonly SymbolDisplayFormat NamespaceWithoutGlobals = SymbolDisplayFormat.FullyQualifiedFormat
         .WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted);
