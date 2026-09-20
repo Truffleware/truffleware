@@ -19,6 +19,7 @@ public sealed partial class RequestResponseGeneratorTests
     private const string RequestResponseInputFile = "RequestResponseGeneratorInput.cs";
     private const string DuplicateHandlersInputFile = "RequestResponseGeneratorDuplicateHandlersInput.cs";
     private const string NonPartialHandlerInputFile = "RequestResponseGeneratorNonPartialHandlerInput.cs";
+    private const string NonPublicHandlerInputFile = "RequestResponseGeneratorNonPublicHandlerInput.cs";
 
     [TestMethod]
     public Task RunGenerator_ValidInput_ExpectedSnapshots()
@@ -63,6 +64,19 @@ public sealed partial class RequestResponseGeneratorTests
         Assert.AreEqual(
             "Missing partial modifier on declaration of type 'NonPartialHandler'; another partial declaration of this type exists",
             diagnostic.GetMessage());
+    }
+
+    [TestMethod]
+    public void RunGenerator_NonPublicRequestResponseHandlers_NoDiagnostics()
+    {
+        RunGeneratorFromInputFile(NonPublicHandlerInputFile, out var outputCompilation);
+
+        var diagnostics = outputCompilation
+            .GetDiagnostics(TestContext.CancellationToken)
+            .ToArray();
+
+        Assert.IsEmpty(diagnostics);
+        AssertNoDiagnostics(outputCompilation);
     }
 
     private static GeneratorDriver RunGeneratorFromInputFile(string fileName, out Compilation outputCompilation)
