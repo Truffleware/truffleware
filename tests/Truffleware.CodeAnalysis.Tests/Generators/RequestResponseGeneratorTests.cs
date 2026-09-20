@@ -18,6 +18,7 @@ public sealed partial class RequestResponseGeneratorTests
     private const string AssemblyName = "Truffleware.RequestResponseGenerator.Tests";
     private const string RequestResponseInputFile = "RequestResponseGeneratorInput.cs";
     private const string DuplicateHandlersInputFile = "RequestResponseGeneratorDuplicateHandlersInput.cs";
+    private const string NonPartialHandlerInputFile = "RequestResponseGeneratorNonPartialHandlerInput.cs";
 
     [TestMethod]
     public Task RunGenerator_ValidInput_ExpectedSnapshots()
@@ -46,6 +47,22 @@ public sealed partial class RequestResponseGeneratorTests
             diagnostic.GetMessage());
 
         AssertNoDiagnostics(outputCompilation);
+    }
+
+    [TestMethod]
+    public void RunGenerator_NonPartialRequestResponseHandlers_DiagnosticError()
+    {
+        RunGeneratorFromInputFile(NonPartialHandlerInputFile, out var outputCompilation);
+
+        var diagnostics = outputCompilation
+            .GetDiagnostics(TestContext.CancellationToken)
+            .ToArray();
+
+        var diagnostic = Assert.ContainsSingle(diagnostics);
+        Assert.AreEqual(DiagnosticSeverity.Error, diagnostic.Severity);
+        Assert.AreEqual(
+            "Missing partial modifier on declaration of type 'NonPartialHandler'; another partial declaration of this type exists",
+            diagnostic.GetMessage());
     }
 
     private static GeneratorDriver RunGeneratorFromInputFile(string fileName, out Compilation outputCompilation)

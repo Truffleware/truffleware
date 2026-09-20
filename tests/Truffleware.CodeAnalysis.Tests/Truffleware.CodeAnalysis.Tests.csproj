@@ -16,8 +16,12 @@
     </ItemGroup>
 
     <ItemGroup>
+        <!-- Compile removes compilation errors -->
         <Compile Remove="Inputs/RequestResponseGeneratorDuplicateHandlersInput.cs"/>
+        <Compile Remove="Inputs/RequestResponseGeneratorNonPartialHandlerInput.cs"/>
+        <!-- None adds them back to the solution view (at least in Rider) -->
         <None Include="Inputs/RequestResponseGeneratorDuplicateHandlersInput.cs"/>
+        <None Include="Inputs/RequestResponseGeneratorNonPartialHandlerInput.cs" />
     </ItemGroup>
 
     <ItemGroup>
