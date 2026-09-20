@@ -3,7 +3,6 @@
 #nullable enable
 
 using global::Truffleware.Abstractions.Messaging;
-using global::Truffleware.Generated;
 
 namespace Truffleware.CodeAnalysis.Tests.Inputs;
 

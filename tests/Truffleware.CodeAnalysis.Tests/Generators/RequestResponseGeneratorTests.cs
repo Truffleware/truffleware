@@ -32,7 +32,7 @@ public sealed partial class RequestResponseGeneratorTests
     [TestMethod]
     public void RunGenerator_DuplicateRequestResponseHandlers_DiagnosticError()
     {
-        var driver = RunGeneratorFromInputFile(DuplicateHandlersInputFile, out _);
+        var driver = RunGeneratorFromInputFile(DuplicateHandlersInputFile, out var outputCompilation);
 
         var diagnostics = driver.GetRunResult()
             .Diagnostics
@@ -44,6 +44,8 @@ public sealed partial class RequestResponseGeneratorTests
         Assert.AreEqual(
             "A handler for 'RequestHandlerAttribute<DuplicatePing, DuplicatePong>' was already declared by 'FirstDuplicatePingHandler'",
             diagnostic.GetMessage());
+
+        AssertNoDiagnostics(outputCompilation);
     }
 
     private static GeneratorDriver RunGeneratorFromInputFile(string fileName, out Compilation outputCompilation)
@@ -67,7 +69,7 @@ public sealed partial class RequestResponseGeneratorTests
         AssertNoDiagnostics(compilation, DiagnosticSeverity.Error);
         AssertNoDiagnostics(compilation, DiagnosticSeverity.Warning);
         AssertNoDiagnostics(compilation, DiagnosticSeverity.Info);
-        // Skip hidden on purpose
+        AssertNoDiagnostics(compilation, DiagnosticSeverity.Hidden);
     }
 
     private static void AssertNoDiagnostics(Compilation compilation, DiagnosticSeverity severity)

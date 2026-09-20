@@ -124,7 +124,6 @@ internal class RequestResponseGenerator : IIncrementalGenerator
 
                 List<string> usingThirdPartyNamespaceNames =
                 [
-                    GeneratorConstants.NamespaceName,
                     AbstractionsNamespace,
                 ];
 
@@ -181,8 +180,12 @@ internal class RequestResponseGenerator : IIncrementalGenerator
             ..requestHandler.RequestResponses.SelectMany(r => r.RequestNamespaces),
             ..requestHandler.RequestResponses.SelectMany(r => r.ResponseNamespaces),
         ];
+        // TODO: Grouping of usings
         var usingLines = usingLinesAll
-            .Where(ns => !string.IsNullOrWhiteSpace(ns) && ns != requestHandler.ClassNamespace)
+            .Where(ns =>
+                !string.IsNullOrWhiteSpace(ns) &&
+                ns != requestHandler.ClassNamespace &&
+                ns != GeneratorConstants.NamespaceName)
             .Distinct()
             .OrderBy(ns => ns)
             .Select(ns => $"using global::{ns};");
