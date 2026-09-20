@@ -9,6 +9,9 @@ updates:
     open-pull-requests-limit: 5
     cooldown:
       default-days: 7
+    ignore:
+      - dependency-name: "Verify.*"
+      - dependency-name: "Microsoft.CodeAnalysis.*"
     groups:
       nuget-minor-patch:
         update-types: ["minor", "patch"]
