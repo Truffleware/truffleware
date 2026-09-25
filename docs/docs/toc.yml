@@ -2,4 +2,4 @@
 
 - name: Messaging
   items:
-  - href: messaging/one-to-one.md
+  - href: messaging/single-handler.md

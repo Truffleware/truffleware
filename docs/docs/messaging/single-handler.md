@@ -1,6 +1,6 @@
-# One-to-one
+# Single handler
 
-For decoupled one-to-one messaging use the request-response messaging pattern implemented by the marker attribute <xref:Truffleware.Abstractions.Messaging.RequestHandlerAttribute`2>:
+For decoupled messaging targeting a single handler use the request-response messaging pattern implemented by the marker attribute <xref:Truffleware.Abstractions.Messaging.RequestHandlerAttribute`2>:
 
 ```csharp
 public record RequestPing;
@@ -30,7 +30,7 @@ public class MyClass(IRequestSender<RequestPing, RequestPong> sender)
 }
 ```
 
-As shown in the example above the sender is designed to be used via dependency injection (DI). Therefore, remember to register the senders and handlers to your containers. For `Microsoft.Extensions.DependencyInjection` Truffleware offers an auto-generated extensions:
+As shown in the example above the sender is designed to be used via dependency injection (DI). Therefore, remember to register the senders and handlers to your containers. For `Microsoft.Extensions.DependencyInjection` Truffleware offers auto-generated extensions:
 
 ```csharp
 using Truffleware.Generated;
