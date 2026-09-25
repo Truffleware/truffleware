@@ -8,9 +8,11 @@
     <Folder Name="/src/">
         <Project Path="src/Truffleware.Abstractions/Truffleware.Abstractions.csproj"/>
         <Project Path="src/Truffleware.CodeAnalysis/Truffleware.CodeAnalysis.csproj"/>
+        <Project Path="src/Truffleware.Messaging/Truffleware.Messaging.csproj" />
     </Folder>
 
     <Folder Name="/tests/">
+        <Project Path="tests/Truffleware.Messaging.Tests/Truffleware.Messaging.Tests.csproj" />
         <Project Path="tests/Truffleware.CodeAnalysis.Tests/Truffleware.CodeAnalysis.Tests.csproj"/>
     </Folder>
 </Solution>
