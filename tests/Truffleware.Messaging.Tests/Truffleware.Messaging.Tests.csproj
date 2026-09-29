@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="AutoFixture.AutoMoq" />
+        <PackageReference Include="Microsoft.Extensions.Logging" />
         <PackageReference Include="Moq" />
         <PackageReference Include="xunit.v3" />
     </ItemGroup>
