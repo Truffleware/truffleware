@@ -13,12 +13,12 @@ namespace Truffleware.Messaging.Pipelines;
 /// <param name="logger">Logger to write into.</param>
 /// <typeparam name="TRequest">Incoming type to this pipeline.</typeparam>
 /// <typeparam name="TResponse">Outgoing response from this pipeline back to the sender.</typeparam>
-public sealed partial class LoggingPipeline<TRequest, TResponse>(
+public sealed partial class LoggingRequestPipeline<TRequest, TResponse>(
     IRequestPipeline<TRequest, TResponse> next,
-    ILogger<LoggingPipeline<TRequest, TResponse>> logger)
+    ILogger<LoggingRequestPipeline<TRequest, TResponse>> logger)
     : IRequestPipeline<TRequest, TResponse>
 {
-    private readonly ILogger<LoggingPipeline<TRequest, TResponse>> _logger = logger;
+    private readonly ILogger<LoggingRequestPipeline<TRequest, TResponse>> _logger = logger;
 
     public async Task<TResponse> InvokeAsync(TRequest request)
     {

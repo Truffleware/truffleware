@@ -9,16 +9,16 @@ using Truffleware.Messaging.Pipelines;
 namespace Truffleware.Messaging.Tests.Pipelines;
 
 [SuppressMessage("Performance", "CA1873:Avoid potentially expensive logging")]
-public class LoggingPipelineTests
+public class LoggingRequestPipelineTests
 {
     private readonly IFixture _fixture = new Fixture();
-    private readonly Mock<ILogger<LoggingPipeline<TestRequest, TestResponse>>> _mockLogger;
+    private readonly Mock<ILogger<LoggingRequestPipeline<TestRequest, TestResponse>>> _mockLogger;
     private readonly Mock<IRequestPipeline<TestRequest, TestResponse>> _mockNext;
 
-    public LoggingPipelineTests()
+    public LoggingRequestPipelineTests()
     {
         _fixture.Customize(new AutoMoqCustomization());
-        _mockLogger = _fixture.Freeze<Mock<ILogger<LoggingPipeline<TestRequest, TestResponse>>>>();
+        _mockLogger = _fixture.Freeze<Mock<ILogger<LoggingRequestPipeline<TestRequest, TestResponse>>>>();
         _mockLogger
             .Setup(m => m.IsEnabled(It.IsAny<LogLevel>()))
             .Returns(true);
@@ -38,7 +38,7 @@ public class LoggingPipelineTests
         var request = _fixture.Create<TestRequest>();
         var response = _fixture.Create<TestResponse>();
 
-        var sut = _fixture.Create<LoggingPipeline<TestRequest, TestResponse>>();
+        var sut = _fixture.Create<LoggingRequestPipeline<TestRequest, TestResponse>>();
         var actual = await sut.InvokeAsync(request);
 
         Assert.Same(response, actual);
@@ -58,7 +58,7 @@ public class LoggingPipelineTests
             .Setup(x => x.InvokeAsync(request))
             .ThrowsAsync(exception);
 
-        var sut = _fixture.Create<LoggingPipeline<TestRequest, TestResponse>>();
+        var sut = _fixture.Create<LoggingRequestPipeline<TestRequest, TestResponse>>();
         var actual = await Assert.ThrowsAsync<InvalidOperationException>(() => sut.InvokeAsync(request));
 
         Assert.Same(exception, actual);

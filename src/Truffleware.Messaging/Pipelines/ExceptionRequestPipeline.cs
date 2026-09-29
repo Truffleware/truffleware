@@ -7,7 +7,7 @@ namespace Truffleware.Messaging.Pipelines;
 /// </summary>
 /// <typeparam name="TRequest">Incoming type to this pipeline.</typeparam>
 /// <typeparam name="TResponse">Outgoing response from this pipeline back to the sender.</typeparam>
-public sealed class ExceptionPipeline<TRequest, TResponse>(
+public sealed class ExceptionRequestPipeline<TRequest, TResponse>(
     IRequestPipeline<TRequest, TResponse> next)
     : IRequestPipeline<TRequest, TResponse>
 {
@@ -21,7 +21,7 @@ public sealed class ExceptionPipeline<TRequest, TResponse>(
     /// </summary>
     /// <param name="next">Next pipeline to invoke.</param>
     /// <param name="action">Action to perform when an exception occurs.</param>
-    public ExceptionPipeline(
+    public ExceptionRequestPipeline(
         IRequestPipeline<TRequest, TResponse> next,
         Action<TRequest, Exception> action)
         : this(next)
@@ -34,7 +34,7 @@ public sealed class ExceptionPipeline<TRequest, TResponse>(
     /// </summary>
     /// <param name="next">Next pipeline to invoke.</param>
     /// <param name="fallback">Fallback to perform when an exception occurs.</param>
-    public ExceptionPipeline(
+    public ExceptionRequestPipeline(
         IRequestPipeline<TRequest, TResponse> next,
         Func<TRequest, Exception, TResponse> fallback)
         : this(next)

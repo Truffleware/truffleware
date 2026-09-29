@@ -6,14 +6,14 @@ using Truffleware.Messaging.Pipelines;
 
 namespace Truffleware.Messaging.Tests.Pipelines;
 
-public class ExceptionPipelineTests
+public class ExceptionRequestPipelineTests
 {
     private readonly IFixture _fixture = new Fixture();
     private readonly Mock<IRequestPipeline<TestRequest, TestResponse>> _mockNext;
     private readonly Mock<Action<TestRequest, Exception>> _mockAction;
     private readonly Mock<Func<TestRequest, Exception, TestResponse>> _mockFallback;
 
-    public ExceptionPipelineTests()
+    public ExceptionRequestPipelineTests()
     {
         _fixture.Customize(new AutoMoqCustomization());
 
@@ -35,7 +35,7 @@ public class ExceptionPipelineTests
         var request = _fixture.Create<TestRequest>();
         var response = _fixture.Create<TestResponse>();
 
-        var sut = _fixture.Create<ExceptionPipeline<TestRequest, TestResponse>>();
+        var sut = _fixture.Create<ExceptionRequestPipeline<TestRequest, TestResponse>>();
         var actual = await sut.InvokeAsync(request);
 
         Assert.Same(response, actual);
@@ -52,11 +52,11 @@ public class ExceptionPipelineTests
             .Setup(m => m.InvokeAsync(request))
             .ThrowsAsync(exception);
 
-        _fixture.Customize<ExceptionPipeline<TestRequest, TestResponse>>(c =>
+        _fixture.Customize<ExceptionRequestPipeline<TestRequest, TestResponse>>(c =>
             c.FromFactory((IRequestPipeline<TestRequest, TestResponse> next,
                     Mock<Action<TestRequest, Exception>> mockAction) =>
-                new ExceptionPipeline<TestRequest, TestResponse>(next, mockAction.Object)));
-        var sut = _fixture.Create<ExceptionPipeline<TestRequest, TestResponse>>();
+                new ExceptionRequestPipeline<TestRequest, TestResponse>(next, mockAction.Object)));
+        var sut = _fixture.Create<ExceptionRequestPipeline<TestRequest, TestResponse>>();
         var actual = await Assert.ThrowsAsync<InvalidOperationException>(() => sut.InvokeAsync(request));
 
         Assert.Equal(exception, actual); // Not same after being rethrown
@@ -78,11 +78,11 @@ public class ExceptionPipelineTests
             .Setup(m => m(request, exception))
             .Returns(response);
 
-        _fixture.Customize<ExceptionPipeline<TestRequest, TestResponse>>(c =>
+        _fixture.Customize<ExceptionRequestPipeline<TestRequest, TestResponse>>(c =>
             c.FromFactory((IRequestPipeline<TestRequest, TestResponse> next,
                     Mock<Func<TestRequest, Exception, TestResponse>> mockAction) =>
-                new ExceptionPipeline<TestRequest, TestResponse>(next, mockAction.Object)));
-        var sut = _fixture.Create<ExceptionPipeline<TestRequest, TestResponse>>();
+                new ExceptionRequestPipeline<TestRequest, TestResponse>(next, mockAction.Object)));
+        var sut = _fixture.Create<ExceptionRequestPipeline<TestRequest, TestResponse>>();
         var actual = await sut.InvokeAsync(request);
 
         Assert.Equal(response, actual);
