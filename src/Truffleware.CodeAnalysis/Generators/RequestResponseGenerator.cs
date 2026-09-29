@@ -157,7 +157,7 @@ internal class RequestResponseGenerator : IIncrementalGenerator
                                 {
                                     public async Task<{{requestResponse.ResponseName}}> SendAsync({{requestResponse.RequestName}} request)
                                     {
-                                        return await handler.HandleAsync(request);
+                                        return await handler.InvokeAsync(request);
                                     }
                                 }
                                 """;

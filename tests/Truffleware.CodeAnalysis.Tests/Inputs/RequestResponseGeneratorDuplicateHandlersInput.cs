@@ -10,11 +10,11 @@ public sealed record DuplicatePong;
 [RequestHandler<DuplicatePing, DuplicatePong>]
 public sealed partial class FirstDuplicatePingHandler
 {
-    public Task<DuplicatePong> HandleAsync(DuplicatePing request) => Task.FromResult(new DuplicatePong());
+    public Task<DuplicatePong> InvokeAsync(DuplicatePing request) => Task.FromResult(new DuplicatePong());
 }
 
 [RequestHandler<DuplicatePing, DuplicatePong>]
 public sealed partial class SecondDuplicatePingHandler
 {
-    public Task<DuplicatePong> HandleAsync(DuplicatePing request) => Task.FromResult(new DuplicatePong());
+    public Task<DuplicatePong> InvokeAsync(DuplicatePing request) => Task.FromResult(new DuplicatePong());
 }

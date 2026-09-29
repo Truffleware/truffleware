@@ -7,7 +7,6 @@ namespace Truffleware.Abstractions.Messaging;
 /// </summary>
 /// <typeparam name="TRequest">Incoming type sent to this handler.</typeparam>
 /// <typeparam name="TResponse">Outgoing response from this handler back to the sender.</typeparam>
-public interface IRequestHandler<in TRequest, TResponse>
+public interface IRequestHandler<in TRequest, TResponse> : IRequestPipeline<TRequest, TResponse>
 {
-    Task<TResponse> HandleAsync(TRequest request);
 }

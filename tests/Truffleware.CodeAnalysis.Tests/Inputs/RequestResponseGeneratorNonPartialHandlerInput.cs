@@ -10,5 +10,5 @@ public sealed record Pong;
 [RequestHandler<Ping, Pong>]
 public class NonPartialHandler
 {
-    public Task<Pong> HandleAsync(Ping request) => Task.FromResult(new Pong());
+    public Task<Pong> InvokeAsync(Ping request) => Task.FromResult(new Pong());
 }

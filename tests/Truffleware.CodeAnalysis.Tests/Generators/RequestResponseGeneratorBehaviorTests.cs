@@ -32,12 +32,12 @@ public class RequestResponseGeneratorBehaviorTests
         {
             var ping = _fixture.Create<Ping>();
             var expected = new Pong();
-            _mockHandler.Setup(h => h.HandleAsync(ping)).ReturnsAsync(expected);
+            _mockHandler.Setup(h => h.InvokeAsync(ping)).ReturnsAsync(expected);
 
             var sender = _fixture.Create<SenderPingToPong>();
             var actual = await sender.SendAsync(ping);
 
-            _mockHandler.Verify(h => h.HandleAsync(ping), Times.Once);
+            _mockHandler.Verify(h => h.InvokeAsync(ping), Times.Once);
             _mockHandler.VerifyNoOtherCalls();
             Assert.AreSame(expected, actual);
         }

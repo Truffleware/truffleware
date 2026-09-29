@@ -15,6 +15,6 @@ public sealed class SenderPingToPong(IRequestHandler<Ping, Pong> handler)
 {
     public async Task<Pong> SendAsync(Ping request)
     {
-        return await handler.HandleAsync(request);
+        return await handler.InvokeAsync(request);
     }
 }
