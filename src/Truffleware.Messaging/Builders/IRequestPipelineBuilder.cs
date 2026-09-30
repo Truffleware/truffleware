@@ -1,19 +1,19 @@
+using Truffleware.Abstractions.Messaging;
+
 namespace Truffleware.Messaging.Builders;
 
 /// <summary>
-/// Build a pipeline with middleware.
+/// Build a pipeline.
 /// </summary>
 /// <typeparam name="TRequest">Incoming type to the pipeline this builder creates.</typeparam>
 /// <typeparam name="TResponse">Outgoing response from the pipeline this builder creates.</typeparam>
-public interface IRequestPipelineBuilder<in TRequest, TResponse>
+public interface IRequestPipelineBuilder<TRequest, TResponse>
 {
     /// <summary>
-    /// Add exception handling to the pipeline.
+    /// Registers implementation type for the current pipeline builder.
     /// </summary>
-    public IRequestPipelineBuilder<TRequest, TResponse> AddExceptionPipeline();
-
-    /// <summary>
-    /// Add logging to the pipeline.
-    /// </summary>
-    public IRequestPipelineBuilder<TRequest, TResponse> AddLoggingPipeline();
+    /// <typeparam name="TPipeline">Implementation type of pipeline to register.</typeparam>
+    /// <returns>Next step of the builder.</returns>
+    IRequestPipelineMiddlewareBuilder<TRequest, TResponse> Use<TPipeline>()
+        where TPipeline : class, IRequestPipeline<TRequest, TResponse>;
 }

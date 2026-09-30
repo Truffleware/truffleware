@@ -13,7 +13,9 @@ public class RequestPipelineBuilderTests
     {
         var services = new ServiceCollection();
 
-        services.AddRequestResponsePipeline<TestRequest, TestResponse>(typeof(TestRequestPipeline));
+        services
+            .ForRequestPipeline<TestRequest, TestResponse>()
+            .Use<TestRequestPipeline>();
 
         using var provider = services.BuildServiceProvider();
         var registeredPipeline = provider.GetRequiredService<IRequestPipeline<TestRequest, TestResponse>>();
@@ -27,7 +29,8 @@ public class RequestPipelineBuilderTests
         var services = new ServiceCollection();
 
         services
-            .AddRequestResponsePipeline<TestRequest, TestResponse>(typeof(TestRequestPipeline))
+            .ForRequestPipeline<TestRequest, TestResponse>()
+            .Use<TestRequestPipeline>()
             .AddExceptionPipeline();
 
         using var provider = services.BuildServiceProvider();
@@ -45,7 +48,8 @@ public class RequestPipelineBuilderTests
         services.AddLogging();
 
         services
-            .AddRequestResponsePipeline<TestRequest, TestResponse>(typeof(TestRequestPipeline))
+            .ForRequestPipeline<TestRequest, TestResponse>()
+            .Use<TestRequestPipeline>()
             .AddLoggingPipeline();
 
         using var provider = services.BuildServiceProvider();
@@ -63,7 +67,8 @@ public class RequestPipelineBuilderTests
         services.AddLogging();
 
         services
-            .AddRequestResponsePipeline<TestRequest, TestResponse>(typeof(TestRequestPipeline))
+            .ForRequestPipeline<TestRequest, TestResponse>()
+            .Use<TestRequestPipeline>()
             .AddExceptionPipeline()
             .AddLoggingPipeline();
 

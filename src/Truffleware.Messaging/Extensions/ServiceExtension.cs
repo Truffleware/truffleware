@@ -6,12 +6,9 @@ namespace Truffleware.Messaging.Extensions;
 
 public static class ServiceExtension
 {
-    public static IRequestPipelineBuilder<TRequest, TResponse> AddRequestResponsePipeline<TRequest, TResponse>(
-        this IServiceCollection services,
-        Type pipeline)
+    public static RequestPipelineBuilder<TRequest, TResponse> ForRequestPipeline<TRequest, TResponse>(
+        this IServiceCollection services)
     {
-        services.AddTransient(typeof(IRequestPipeline<TRequest, TResponse>), pipeline);
-
         return new RequestPipelineBuilder<TRequest, TResponse>(services);
     }
 }
