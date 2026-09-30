@@ -14,5 +14,6 @@
     <Folder Name="/tests/">
         <Project Path="tests/Truffleware.Messaging.Tests/Truffleware.Messaging.Tests.csproj"/>
         <Project Path="tests/Truffleware.CodeAnalysis.Tests/Truffleware.CodeAnalysis.Tests.csproj"/>
+        <Project Path="tests/Truffleware.Tests/Truffleware.Tests.csproj"/>
     </Folder>
 </Solution>
